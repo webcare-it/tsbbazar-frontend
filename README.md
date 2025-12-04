@@ -1,1 +1,1 @@
-# React Template One E-Commerce
+# E-Commerce
