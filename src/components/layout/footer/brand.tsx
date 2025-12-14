@@ -19,7 +19,7 @@ export const BrandFooter = () => {
           ))
         ) : (
           <>
-            {brands && brands.length > 0 ? (
+            {brands && brands?.length > 0 ? (
               brands?.map((item) => (
                 <li key={item?.name}>
                   <Link
@@ -35,7 +35,9 @@ export const BrandFooter = () => {
                 </li>
               ))
             ) : (
-              <li className="text-sm text-white">No brands found</li>
+              <li key="no-brands">
+                <span className="text-sm text-white">No brands found</span>
+              </li>
             )}
           </>
         )}
