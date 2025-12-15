@@ -1,15 +1,24 @@
 import { useGetProductsByBrand } from "@/api/queries/useProducts";
 import { ProductsCard } from "@/components/card/products";
+import type { PaginationDataType } from "@/components/common/pagination-wrapper";
 import { SeoWrapper } from "@/components/common/seo-wrapper";
 import { slugifyToTitle } from "@/helper";
 import type { ProductType } from "@/type";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 export const BrandsPage = () => {
   const { name } = useParams();
-  const { data, isLoading } = useGetProductsByBrand();
+  const [filters, setFilters] = useState<Record<string, unknown>>({ page: 1 });
+  const { data, isLoading } = useGetProductsByBrand(filters);
 
   const products = (data?.data as ProductType[]) || [];
+  const paginationData = (data as { meta: PaginationDataType })?.meta || {};
+
+  const handlePageChange = (page: number) => {
+    setFilters((prev) => ({ ...prev, page }));
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
@@ -18,6 +27,8 @@ export const BrandsPage = () => {
       <ProductsCard
         title={slugifyToTitle(name as string)}
         products={products}
+        pagination={paginationData}
+        onPageChange={handlePageChange}
         isLoading={isLoading}
       />
     </>
