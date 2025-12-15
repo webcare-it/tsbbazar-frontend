@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block admin/private stuff if you have any (optional, add more if needed)
+Disallow: /admin/
+Disallow: /cart/     # if you don't want cart pages indexed
+Disallow: /checkout/
+Disallow: /search?
+
+Sitemap: https://tsbbazar/sitemap.xml
