@@ -10,7 +10,6 @@ export default defineConfig({
     tailwindcss(),
     Sitemap({
       hostname: "https://tsbbazar.com/",
-      dynamicRoutes: ["/", "/products"],
     }),
   ],
 
