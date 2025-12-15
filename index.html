@@ -28,16 +28,13 @@
 
     <script>
       (function () {
-        if (typeof window === "undefined") return;
-
-        // Check if we're a bot/crawler (basic check)
         const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(
           navigator.userAgent
         );
 
         if (!isBot) return;
 
-        const BASE_URL = "https://enterprise.droploo.com/api/v2";
+        const BASE_URL = "https://backend.tsbbazar.com/api/v2";
 
         const setMetaProperty = (property, content) => {
           if (!content) return;
@@ -106,22 +103,22 @@
 
               fetch(`${BASE_URL}/product-metadata/${productId}`)
                 .then((response) =>
-                  response.ok ? response.json() : Promise.reject()
+                  response?.ok ? response.json() : Promise.reject()
                 )
                 .then((productData) => {
-                  if (!productData || !productData.data) return;
+                  if (!productData || !productData?.data) return;
 
-                  const product = productData.data;
+                  const product = productData?.data;
 
-                  document.title = product.name || document.title;
-                  setMetaProperty("og:title", product.name);
+                  document.title = product?.name || document.title;
+                  setMetaProperty("og:title", product?.name);
                   setMetaProperty(
                     "og:description",
-                    product.description || config.metaDescription
+                    product?.description || config.metaDescription
                   );
                   setMetaProperty(
                     "og:image",
-                    product.image
+                    product?.image
                       ? `${BASE_URL}/${product.image}`
                       : config.metaImage
                   );
