@@ -10,6 +10,19 @@ export default defineConfig({
     tailwindcss(),
     Sitemap({
       hostname: "https://tsbbazar.com/",
+      dynamicRoutes: [
+        "/",
+        "/products",
+        "/categories",
+        "/pages/about-us",
+        "/pages/contact-us",
+        "/pages/privacy-policy",
+        "/pages/terms-condition",
+        "/pages/return-policy",
+        "/pages/support-policy",
+        "/pages/seller-policy",
+      ],
+      priority: 1,
     }),
   ],
 
