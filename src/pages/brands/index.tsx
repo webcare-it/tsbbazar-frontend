@@ -1,5 +1,5 @@
 import { useGetProductsByBrand } from "@/api/queries/useProducts";
-import { ProductsCard } from "@/components/card/products";
+import { ProductsSection } from "@/components/card/products-section";
 import type { PaginationDataType } from "@/components/common/pagination-wrapper";
 import { SeoWrapper } from "@/components/common/seo-wrapper";
 import { slugifyToTitle } from "@/helper";
@@ -24,7 +24,7 @@ export const BrandsPage = () => {
     <>
       <SeoWrapper title={slugifyToTitle(name as string)} />
 
-      <ProductsCard
+      <ProductsSection
         title={slugifyToTitle(name as string)}
         products={products}
         pagination={paginationData}

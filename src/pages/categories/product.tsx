@@ -3,7 +3,7 @@ import type { ProductType } from "@/type";
 import { useParams } from "react-router-dom";
 import { slugifyToTitle } from "@/helper";
 import { SeoWrapper } from "@/components/common/seo-wrapper";
-import { ProductsCard } from "@/components/card/products";
+import { ProductsSection } from "@/components/card/products-section";
 import type { PaginationDataType } from "@/components/common/pagination-wrapper";
 import { useState } from "react";
 
@@ -23,7 +23,7 @@ export const CategoriesProductPage = () => {
   return (
     <>
       <SeoWrapper title={slugifyToTitle(name as string)} />j
-      <ProductsCard
+      <ProductsSection
         title={slugifyToTitle(name as string)}
         products={products}
         pagination={paginationData}
@@ -54,7 +54,7 @@ export const CategoriesSubCategoryProductPage = () => {
     <>
       <SeoWrapper title={slugifyToTitle(subName as string)} />
 
-      <ProductsCard
+      <ProductsSection
         title={slugifyToTitle(subName as string)}
         products={products}
         pagination={paginationData}
@@ -85,7 +85,7 @@ export const CategoriesSubSubCategoryProductPage = () => {
     <>
       <SeoWrapper title={slugifyToTitle(subSubName as string)} />
 
-      <ProductsCard
+      <ProductsSection
         title={slugifyToTitle(subSubName as string)}
         products={products}
         pagination={paginationData}

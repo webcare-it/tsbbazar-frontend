@@ -67,7 +67,7 @@ export const SearchPage = () => {
             )}
           </CardLayout>
 
-          {pagination && (
+          {Object.keys(pagination)?.length > 0 && (
             <PaginationWrapper
               paginationData={pagination}
               onPageChange={handlePageChange}

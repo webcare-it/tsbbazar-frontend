@@ -18,7 +18,7 @@ interface Props {
   onPageChange: (page: number) => void;
 }
 
-export const ProductsCard = ({
+export const ProductsSection = ({
   title,
   products,
   isLoading,
@@ -52,7 +52,7 @@ export const ProductsCard = ({
           )}
         </CardLayout>
 
-        {pagination && (
+        {Object.keys(pagination)?.length > 0 && (
           <PaginationWrapper
             paginationData={pagination}
             onPageChange={onPageChange}
