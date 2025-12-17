@@ -1,4 +1,4 @@
-# Tsbbazar E-Commerce Frontend
+# E-Commerce Frontend
 
 A modern, responsive e-commerce platform built with React, TypeScript, and Vite.
 
