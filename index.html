@@ -15,7 +15,7 @@
         import("https://esm.sh/isbot@5").then((module) => {
           const isBot = module.isbot(navigator.userAgent);
 
-          // if (!isBot) return;
+          if (!isBot) return;
 
           const BASE_URL = "https://backend.tsbbazar.com";
           const IMAGE_URL = `${BASE_URL}/public/`;
@@ -61,8 +61,6 @@
                   ? `${IMAGE_URL}${siteConfig?.meta_image_url}`
                   : `${IMAGE_URL}${siteConfig?.logo}`,
               };
-
-              console.log("Config:", config);
 
               document.title = config?.name;
               setMetaName("description", config?.description);
