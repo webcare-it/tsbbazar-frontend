@@ -12,10 +12,14 @@
       content="online shopping, e-commerce, buy online, cheap prices, fashion, electronics, free shipping, deals, discounts" />
     <script>
       (function () {
-        import("https://esm.sh/isbot@5").then(({ default: isBot }) => {
-          if (!isBot(navigator.userAgent)) return;
+        import("https://esm.sh/isbot@5").then((module) => {
+          const isBot = module.isbot(navigator.userAgent);
 
-          const BASE_URL = "https://backend.tsbbazar.com/api/v2";
+          if (!isBot) return;
+
+          const BASE_URL = "https://backend.tsbbazar.com";
+          const IMAGE_URL = `${BASE_URL}/public/`;
+          const BACKEND_URL = `${BASE_URL}/api/v2`;
 
           const setMetaProperty = (property, content) => {
             if (!content) return;
@@ -39,65 +43,65 @@
             tag.setAttribute("content", content);
           };
 
-          fetch(`${BASE_URL}/metadata`)
+          fetch(`${BACKEND_URL}/metadata`)
             .then((response) =>
               response.ok ? response.json() : Promise.reject()
             )
             .then((cfg) => {
               if (!cfg || !cfg.data) return;
-              const siteConfig = cfg.data;
+              const siteConfig = cfg?.data || {};
 
               const config = {
-                siteMotto: siteConfig.site_motto || "",
-                siteIcon: siteConfig.site_icon
-                  ? `${BASE_URL}/${siteConfig.site_icon}`
+                name: `${siteConfig?.name} | ${siteConfig?.motto}` || "",
+                favicon: siteConfig?.favicon || "",
+                logo: siteConfig?.logo || "",
+                description: siteConfig?.description || "",
+                keywords: siteConfig?.keywords || "",
+                metaImage: siteConfig?.meta_image_url
+                  ? `${IMAGE_URL}${siteConfig?.meta_image_url}`
                   : "",
-                metaTitle: siteConfig.meta_title || "",
-                metaDescription: siteConfig.meta_description || "",
-                metaKeywords: siteConfig.meta_keywords || "",
-                metaImage: siteConfig.meta_image
-                  ? `${BASE_URL}/${siteConfig.meta_image}`
-                  : "",
-                siteName: siteConfig.site_name || "Tsbbazar",
               };
 
-              document.title =
-                config.metaTitle ||
-                config.siteName ||
-                "Tsbbazar - Best Online Shopping Store";
-
-              setMetaName("description", config.metaDescription);
-              setMetaName("keywords", config.metaKeywords);
-
-              setMetaProperty("og:title", config.metaTitle || config.siteName);
-              setMetaProperty("og:description", config.metaDescription);
-              setMetaProperty("og:image", config.metaImage);
+              document.title = config?.name;
+              setMetaName("description", config?.description);
+              setMetaName("keywords", config?.keywords);
+              setMetaProperty("og:title", config?.name);
+              setMetaProperty("og:description", config?.description);
+              setMetaProperty("og:image", config?.metaImage);
               setMetaProperty("og:url", window.location.href);
-              setMetaProperty("og:site_name", config.siteName);
+              setMetaProperty("og:site_name", config?.name);
 
               if (
                 window.location.pathname.includes("/products/") &&
                 window.location.pathname.split("/").length >= 3
               ) {
                 const productId = window.location.pathname.split("/")[2];
-                fetch(`${BASE_URL}/product-metadata/${productId}`)
+                fetch(`${BACKEND_URL}/product-metadata/${productId}`)
                   .then((response) =>
                     response?.ok ? response.json() : Promise.reject()
                   )
                   .then((productData) => {
                     if (!productData || !productData?.data) return;
-                    const product = productData?.data;
-                    document.title = product?.name || document.title;
-                    setMetaProperty("og:title", product?.name);
+
+                    const product = productData?.data || {};
+                    document.title = product?.meta_title || config?.name;
+                    setMetaName(
+                      "description",
+                      product?.meta_description || config?.description
+                    );
+                    setMetaProperty(
+                      "og:title",
+                      product?.meta_title || config?.name
+                    );
                     setMetaProperty(
                       "og:description",
-                      product?.description || config.metaDescription
+                      product?.description || config?.description
                     );
                     setMetaProperty(
                       "og:image",
                       product?.image
-                        ? `${BASE_URL}/${product.image}`
-                        : config.metaImage
+                        ? `${IMAGE_URL}/${product?.image}`
+                        : config?.metaImage
                     );
                   })
                   .catch(() => {});
