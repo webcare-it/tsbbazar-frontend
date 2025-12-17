@@ -32,15 +32,12 @@ export default defineConfig({
             "react-router-dom",
             "react-helmet-async",
           ],
-
           state: ["@reduxjs/toolkit", "react-redux", "redux-state-sync"],
-
           tanstack: ["@tanstack/react-query"],
           axios: ["axios"],
           motion: ["framer-motion"],
           icons: ["lucide-react"],
           swiper: ["swiper"],
-
           radix: [
             "@radix-ui/react-avatar",
             "@radix-ui/react-checkbox",
@@ -53,7 +50,6 @@ export default defineConfig({
             "@radix-ui/react-tabs",
             "@radix-ui/react-tooltip",
           ],
-
           utils: [
             "clsx",
             "tailwind-merge",
